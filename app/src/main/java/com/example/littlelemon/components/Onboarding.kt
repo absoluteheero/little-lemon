@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -74,7 +75,7 @@ fun Onboarding() {
             fontSize = 12.sp,
             fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
         )
-        OutlinedTextField(
+        TextField(
             value = firstName,
             onValueChange = {firstName = it},
             modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
@@ -86,7 +87,7 @@ fun Onboarding() {
             fontSize = 12.sp,
             fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
         )
-        OutlinedTextField(
+        TextField(
             value = lastName,
             onValueChange = {lastName = it},
             modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
@@ -97,7 +98,7 @@ fun Onboarding() {
             fontSize = 12.sp,
             fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
         )
-        OutlinedTextField(
+        TextField(
             value = email,
             onValueChange = {email = it},
             modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
