@@ -3,15 +3,11 @@ package com.example.littlelemon.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement.Absolute.Center
-import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
@@ -22,9 +18,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.littlelemon.R
+import com.example.littlelemon.ui.theme.LittleLemonGreen
+import com.example.littlelemon.ui.theme.LittleLemonYellow
+
 
 @Composable
 fun Onboarding() {
+
+    var firstName by remember { mutableStateOf("") }
+    var lastName by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -34,9 +38,10 @@ fun Onboarding() {
         Image(
             painter = painterResource(R.drawable.logo),
             contentDescription = "Logo",
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .height(85.dp)
-                .padding(top= 8.dp, bottom = 16.dp)
+                .padding(top = 8.dp, bottom = 16.dp)
         )
         // Title with green background
         Text(
@@ -46,7 +51,7 @@ fun Onboarding() {
             textAlign = TextAlign.Center,
             color = Color.White,
             modifier = Modifier
-                .background(colorResource(id = R.color.green))
+                .background(LittleLemonGreen)
                 .padding(16.dp)
                 .fillMaxWidth()
                 .height(85.dp)
@@ -64,36 +69,48 @@ fun Onboarding() {
         )
 
         // Input text fields for first name, last name, and email
-        OutlinedTextField(
-            value = "",
-            onValueChange = { /* TODO */ },
-            label = { Text("First Name") },
-            modifier = Modifier.fillMaxWidth()
+        Text(
+            text = "First Name",
+            fontSize = 12.sp,
+            fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
         )
         OutlinedTextField(
-            value = "",
-            onValueChange = { /* TODO */ },
-            label = { Text("Last Name") },
-            modifier = Modifier.fillMaxWidth()
+            value = firstName,
+            onValueChange = {firstName = it},
+            modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
+        )
+
+
+        Text(
+            text = "Last Name",
+            fontSize = 12.sp,
+            fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
         )
         OutlinedTextField(
-            value = "",
-            onValueChange = { /* TODO */ },
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth()
+            value = lastName,
+            onValueChange = {lastName = it},
+            modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
+        )
+
+        Text(
+            text = "Email",
+            fontSize = 12.sp,
+            fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
+        )
+        OutlinedTextField(
+            value = email,
+            onValueChange = {email = it},
+            modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
         )
 
         // Button at the bottom of the page
-        Button(
-            onClick = { /* TODO */ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp)
-        ) {
-            Text(text = "Submit")
-        }
+        MyButton(text = "Register", onClick = { /*TODO*/ }, color = LittleLemonYellow)
+
     }
+
+
 }
+
 
 @Preview(showBackground = true)
 @Composable

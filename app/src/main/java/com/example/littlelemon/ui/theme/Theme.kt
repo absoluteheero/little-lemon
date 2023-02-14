@@ -27,6 +27,10 @@ private val LightColorPalette = lightColors(
     */
 )
 
+private val LittleLemonYellowButton = lightColors(
+    background = LittleLemonYellow
+)
+
 @Composable
 fun LittleLemonTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
