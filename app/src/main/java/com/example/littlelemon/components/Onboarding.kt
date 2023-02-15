@@ -112,7 +112,7 @@ fun Onboarding(navController: NavHostController) {
         // Button at the bottom of the page for registering
         MyButton(text = "Register", onClick = {
 
-            if(firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()){
+            if(firstName.isBlank() || lastName.isBlank() || email.isBlank()){
                 Toast.makeText(context, R.string.unsuccessful_reg, Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(context, R.string.successful_reg, Toast.LENGTH_LONG).show()

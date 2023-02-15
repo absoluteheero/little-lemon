@@ -18,16 +18,16 @@ fun MyNavigation(){
 
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = startDestination){
-        composable(OnBoarding.route){
-            Onboarding(navController)
-        }
-
         composable(Home.route){
             Home(navController)
         }
 
-        composable(Profile.route){
+        composable(OnBoarding.route){
             Onboarding(navController)
+        }
+
+        composable(Profile.route){
+            Profile(navController)
         }
     }
 }

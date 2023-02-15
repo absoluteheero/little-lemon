@@ -58,24 +58,28 @@ fun Profile(navController: NavHostController) {
         Text(
             text = "First Name",
             fontSize = 12.sp,
-            fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
+            fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold))
         )
-        TextField(
-            value = UserSingleton.firstName.toString(),
-            onValueChange = {firstName = it},
-            modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
+        Text(
+            text = UserSingleton.firstName.toString(),
+            modifier = Modifier.fillMaxWidth()
+                .padding(bottom=16.dp),
+            fontFamily = FontFamily(Font(R.font.markazitextregular)),
+            fontSize = 24.sp
         )
 
 
         Text(
             text = "Last Name",
             fontSize = 12.sp,
-            fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
+            fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold))
         )
-        TextField(
-            value = UserSingleton.lastName.toString(),
-            onValueChange = {lastName = it},
-            modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
+
+        Text(
+            text = UserSingleton.lastName.toString(),
+            modifier = Modifier.fillMaxWidth().padding(bottom=16.dp),
+            fontFamily = FontFamily(Font(R.font.markazitextregular)),
+            fontSize = 24.sp
         )
 
         Text(
@@ -83,15 +87,16 @@ fun Profile(navController: NavHostController) {
             fontSize = 12.sp,
             fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
         )
-        TextField(
-            value = UserSingleton.email.toString(),
-            onValueChange = {email = it},
-            modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
+        Text(
+            text = UserSingleton.email.toString(),
+            modifier = Modifier.fillMaxWidth().padding(bottom=16.dp),
+            fontFamily = FontFamily(Font(R.font.markazitextregular)),
+            fontSize = 24.sp
         )
 
         // Button at the bottom of the page
         MyButton(text = "Logout", onClick = {
-            saveUser(firstName,lastName,email,false, context)
+            UserSingleton.logout(context)
             navController.navigate(OnBoarding.route)
         },
             color = LittleLemonYellow

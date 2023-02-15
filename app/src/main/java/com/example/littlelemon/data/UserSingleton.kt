@@ -28,4 +28,12 @@ object UserSingleton{
         email = sharedPref.getString("email", null)
         isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
     }
+
+    // Logout the user
+    fun logout(context: Context) {
+        val sharedPref = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit().clear()) {
+            apply()
+        }
+    }
 }
