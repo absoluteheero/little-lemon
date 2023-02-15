@@ -1,5 +1,6 @@
 package com.example.littlelemon.components
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -8,6 +9,7 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
@@ -18,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.littlelemon.R
+import com.example.littlelemon.data.UserSingleton
 import com.example.littlelemon.ui.theme.LittleLemonGreen
 import com.example.littlelemon.ui.theme.LittleLemonYellow
 
@@ -29,6 +32,7 @@ fun Onboarding(navController: NavHostController) {
     var lastName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
 
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -104,11 +108,28 @@ fun Onboarding(navController: NavHostController) {
         )
 
         // Button at the bottom of the page
-        MyButton(text = "Register", onClick = { /*TODO*/ }, color = LittleLemonYellow)
+        MyButton(text = "Register", onClick = {
+            saveUser(firstName,lastName,email,true, context)
+            navController.navigate(Home.route)
+                                              },
+            color = LittleLemonYellow)
 
     }
 
+}
 
+fun saveUser(
+    firstName: String,
+    lastName: String,
+    email: String,
+    isLoggedIn: Boolean,
+    context: Context)
+{
+    UserSingleton.firstName = firstName
+    UserSingleton.lastName =lastName
+    UserSingleton.email = email
+    UserSingleton.isLoggedIn = isLoggedIn
+    UserSingleton.saveToPreferences(context)
 }
 
 

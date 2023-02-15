@@ -11,10 +11,14 @@ import com.example.littlelemon.components.Home
 import com.example.littlelemon.components.OnBoarding
 import com.example.littlelemon.components.Onboarding
 import com.example.littlelemon.components.Profile
+import com.example.littlelemon.data.UserSingleton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        UserSingleton.loadFromPreferences(this)
+
         setContent {
             MyNavigation()
         }
@@ -24,14 +28,20 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyNavigation(){
 
+    val startDestination = if (UserSingleton.isLoggedIn){
+        Home.route
+    } else {
+        OnBoarding.route
+    }
+
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = OnBoarding.route){
+    NavHost(navController = navController, startDestination = startDestination){
         composable(OnBoarding.route){
             Onboarding(navController)
         }
 
         composable(Home.route){
-            Onboarding(navController)
+            Home(navController)
         }
 
         composable(Profile.route){
