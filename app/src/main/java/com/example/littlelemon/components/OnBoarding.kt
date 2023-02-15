@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.example.littlelemon.R
 import com.example.littlelemon.data.UserSingleton
 import com.example.littlelemon.ui.theme.LittleLemonGreen
@@ -27,7 +27,9 @@ import com.example.littlelemon.ui.theme.LittleLemonYellow
 
 
 @Composable
-fun Onboarding(navController: NavHostController) {
+fun OnBoarding(navController: NavController) {
+
+    navController.clearBackStack(OnBoarding.route)
 
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
@@ -54,7 +56,7 @@ fun Onboarding(navController: NavHostController) {
         Text(
             text = stringResource(R.string.onboarding_title),
             fontSize = 30.sp,
-            fontFamily= FontFamily(Font(R.font.markazitextregular)),
+            fontFamily = FontFamily(Font(R.font.markazitextregular)),
             textAlign = TextAlign.Center,
             color = Color.White,
             modifier = Modifier
@@ -82,8 +84,10 @@ fun Onboarding(navController: NavHostController) {
         )
         TextField(
             value = firstName,
-            onValueChange = {firstName = it},
-            modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
+            onValueChange = { firstName = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
         )
 
 
@@ -94,8 +98,10 @@ fun Onboarding(navController: NavHostController) {
         )
         TextField(
             value = lastName,
-            onValueChange = {lastName = it},
-            modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
+            onValueChange = { lastName = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
         )
 
         Text(
@@ -105,23 +111,27 @@ fun Onboarding(navController: NavHostController) {
         )
         TextField(
             value = email,
-            onValueChange = {email = it},
-            modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
+            onValueChange = { email = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
         )
 
         // Button at the bottom of the page for registering
-        MyButton(text = "Register", onClick = {
+        MyButton(
+            text = "Register", onClick = {
 
-            if(firstName.isBlank() || lastName.isBlank() || email.isBlank()){
-                Toast.makeText(context, R.string.unsuccessful_reg, Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(context, R.string.successful_reg, Toast.LENGTH_LONG).show()
-                saveUser(firstName,lastName,email,true, context)
-                navController.navigate(Home.route)
-            }
+                if (firstName.isBlank() || lastName.isBlank() || email.isBlank()) {
+                    Toast.makeText(context, R.string.unsuccessful_reg, Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, R.string.successful_reg, Toast.LENGTH_LONG).show()
+                    saveUser(firstName, lastName, email, true, context)
+                    navController.navigate(Home.route)
+                }
 
-                                              },
-            color = LittleLemonYellow)
+            },
+            color = LittleLemonYellow
+        )
 
     }
 
@@ -132,10 +142,10 @@ fun saveUser(
     lastName: String,
     email: String,
     isLoggedIn: Boolean,
-    context: Context)
-{
+    context: Context
+) {
     UserSingleton.firstName = firstName
-    UserSingleton.lastName =lastName
+    UserSingleton.lastName = lastName
     UserSingleton.email = email
     UserSingleton.isLoggedIn = isLoggedIn
     UserSingleton.saveToPreferences(context)

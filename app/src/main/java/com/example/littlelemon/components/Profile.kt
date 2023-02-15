@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.littlelemon.R
 import com.example.littlelemon.data.UserSingleton
@@ -24,7 +25,7 @@ import com.example.littlelemon.ui.theme.LittleLemonGreen
 import com.example.littlelemon.ui.theme.LittleLemonYellow
 
 @Composable
-fun Profile(navController: NavHostController) {
+fun Profile(navController: NavController) {
 
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
@@ -98,6 +99,7 @@ fun Profile(navController: NavHostController) {
         MyButton(text = "Logout", onClick = {
             UserSingleton.logout(context)
             navController.navigate(OnBoarding.route)
+
         },
             color = LittleLemonYellow
         )

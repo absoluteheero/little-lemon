@@ -1,6 +1,7 @@
 package com.example.littlelemon.components
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -10,6 +11,9 @@ import com.example.littlelemon.data.UserSingleton
 @Composable
 fun MyNavigation(){
 
+    val context = LocalContext.current
+    UserSingleton.loadFromPreferences(context)
+
     val startDestination = if (UserSingleton.isLoggedIn){
         Home.route
     } else {
@@ -18,16 +22,19 @@ fun MyNavigation(){
 
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = startDestination){
-        composable(Home.route){
-            Home(navController)
-        }
 
         composable(OnBoarding.route){
-            Onboarding(navController)
+            OnBoarding(navController = navController)
+        }
+
+        composable(Home.route){
+            Home(navController = navController)
+
+
         }
 
         composable(Profile.route){
-            Profile(navController)
+            Profile(navController = navController)
         }
     }
 }
