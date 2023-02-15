@@ -1,7 +1,5 @@
 package com.example.littlelemon.components
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -25,9 +23,8 @@ import com.example.littlelemon.data.UserSingleton
 import com.example.littlelemon.ui.theme.LittleLemonGreen
 import com.example.littlelemon.ui.theme.LittleLemonYellow
 
-
 @Composable
-fun Onboarding(navController: NavHostController) {
+fun Profile(navController: NavHostController) {
 
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
@@ -39,7 +36,6 @@ fun Onboarding(navController: NavHostController) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-
         // Logo image
         Image(
             painter = painterResource(R.drawable.logo),
@@ -48,22 +44,6 @@ fun Onboarding(navController: NavHostController) {
                 .fillMaxWidth()
                 .height(85.dp)
                 .padding(top = 8.dp, bottom = 16.dp)
-        )
-
-        // Title with green background
-        Text(
-            text = stringResource(R.string.onboarding_title),
-            fontSize = 30.sp,
-            fontFamily= FontFamily(Font(R.font.markazitextregular)),
-            textAlign = TextAlign.Center,
-            color = Color.White,
-            modifier = Modifier
-                .background(LittleLemonGreen)
-                .padding(16.dp)
-                .fillMaxWidth()
-                .height(85.dp)
-                .wrapContentHeight()
-
         )
 
         // Personnal info subtitle
@@ -81,7 +61,7 @@ fun Onboarding(navController: NavHostController) {
             fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
         )
         TextField(
-            value = firstName,
+            value = UserSingleton.firstName.toString(),
             onValueChange = {firstName = it},
             modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
         )
@@ -93,7 +73,7 @@ fun Onboarding(navController: NavHostController) {
             fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
         )
         TextField(
-            value = lastName,
+            value = UserSingleton.lastName.toString(),
             onValueChange = {lastName = it},
             modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
         )
@@ -104,44 +84,19 @@ fun Onboarding(navController: NavHostController) {
             fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
         )
         TextField(
-            value = email,
+            value = UserSingleton.email.toString(),
             onValueChange = {email = it},
             modifier = Modifier.fillMaxWidth().padding(bottom=16.dp)
         )
 
-        // Button at the bottom of the page for registering
-        MyButton(text = "Register", onClick = {
-
-            if(firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()){
-                Toast.makeText(context, R.string.unsuccessful_reg, Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(context, R.string.successful_reg, Toast.LENGTH_LONG).show()
-                saveUser(firstName,lastName,email,true, context)
-                navController.navigate(Home.route)
-            }
-
-                                              },
-            color = LittleLemonYellow)
+        // Button at the bottom of the page
+        MyButton(text = "Logout", onClick = {
+            saveUser(firstName,lastName,email,false, context)
+            navController.navigate(OnBoarding.route)
+        },
+            color = LittleLemonYellow
+        )
 
     }
 
 }
-
-fun saveUser(
-    firstName: String,
-    lastName: String,
-    email: String,
-    isLoggedIn: Boolean,
-    context: Context)
-{
-    UserSingleton.firstName = firstName
-    UserSingleton.lastName =lastName
-    UserSingleton.email = email
-    UserSingleton.isLoggedIn = isLoggedIn
-    UserSingleton.saveToPreferences(context)
-}
-
-
-
-
-

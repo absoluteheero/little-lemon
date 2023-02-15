@@ -5,7 +5,7 @@ interface Destinations{
 }
 
 object OnBoarding: Destinations {
-    override val route = "Onboarding"
+    override val route = "OnBoarding"
 }
 
 object Home: Destinations {
