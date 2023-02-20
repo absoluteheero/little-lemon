@@ -8,6 +8,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -45,9 +47,9 @@ fun Home(navController: NavController) {
     // add databaseMenuItems code here
     val databaseMenuItems by menuDao.getAll().observeAsState(emptyList())
 
-    var menuItems by remember {mutableStateOf(databaseMenuItems)}
+    var menuItems by remember { mutableStateOf(databaseMenuItems) }
 
-    if (menuItems.isEmpty()){
+    if (menuItems.isEmpty()) {
         menuItems = databaseMenuItems.sortedBy { it.title }
     }
 
@@ -59,81 +61,8 @@ fun Home(navController: NavController) {
     ) {
 
         LittleLemonTopAppBar(navController = navController)
-        LittleLemonHeroSection(menuItems, onMenuChanged = {menu -> menuItems = menu})
-
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.White))
-        {
-
-            Text(modifier = Modifier.padding(start=8.dp, top = 8.dp),
-                text = "ORDER FOR DELIVERY !",
-                style = Typography.h4
-            )
-
-            Row(horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp, bottom = 12.dp)
-
-
-            ) {
-                Box(
-                    contentAlignment = Alignment.CenterStart,
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(LittleLemonWhite)
-                        ){
-                    Text(
-                        modifier = Modifier.padding(8.dp),
-                        text = "Starter"
-                    )
-                }
-
-                Box(
-                    contentAlignment = Alignment.CenterStart,
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(LittleLemonWhite)
-                        ){
-                    Text(
-                        modifier = Modifier.padding(8.dp),
-                        text = "Mains"
-                    )
-                }
-                Box(
-                    contentAlignment = Alignment.CenterStart,
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(LittleLemonWhite)
-                        ){
-                    Text(
-                        modifier = Modifier.padding(8.dp),
-                        text = "Desserts"
-                    )
-                }
-                Box(
-                    contentAlignment = Alignment.CenterStart,
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(LittleLemonWhite)
-                        ){
-                    Text(
-                        modifier = Modifier.padding(8.dp),
-                        text = "Drinks"
-                    )
-                }
-
-            }
-
-            Divider()
-
-        }
-
+        LittleLemonHeroSection(menuItems, onMenuChanged = { menu -> menuItems = menu })
+        MenuBreakdown(menuItems, onMenuChanged = { menu -> menuItems = menu })
         MenuItems(menuItems)
 
 
@@ -176,7 +105,10 @@ fun LittleLemonTopAppBar(navController: NavController) {
 }
 
 @Composable
-fun LittleLemonHeroSection(menuItems: List<MenuItemRoom>, onMenuChanged: (List<MenuItemRoom>) -> Unit) {
+fun LittleLemonHeroSection(
+    menuItems: List<MenuItemRoom>,
+    onMenuChanged: (List<MenuItemRoom>) -> Unit
+) {
 
     var search by remember { mutableStateOf("") }
 
@@ -225,14 +157,14 @@ fun LittleLemonHeroSection(menuItems: List<MenuItemRoom>, onMenuChanged: (List<M
             value = search,
             onValueChange = {
                 search = it
-                if (search.isBlank()){
-                    menu = menuItems.filter { it.title.startsWith(".", ignoreCase = true)  }
+                if (search.isBlank()) {
+                    menu = menuItems.filter { it.title.startsWith(".", ignoreCase = true) }
                 } else {
-                    menu = menuItems.filter { it.title.startsWith(search, ignoreCase = true)  }
+                    menu = menuItems.filter { it.title.startsWith(search, ignoreCase = true) }
                 }
 
                 onMenuChanged(menu)
-                },
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(12.dp)
@@ -245,11 +177,7 @@ fun LittleLemonHeroSection(menuItems: List<MenuItemRoom>, onMenuChanged: (List<M
             },
             singleLine = true,
             leadingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_search_24),
-                    contentDescription = null,
-
-                    )
+                Icon(imageVector = Icons.Default.Search, contentDescription = "")
             },
 
             )
@@ -262,9 +190,9 @@ fun MenuItems(menuItems: List<MenuItemRoom>) {
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         items(
             items = menuItems,
-        ) {
-                item -> MenuItem(menuItem = item)
-                Divider()
+        ) { item ->
+            MenuItem(menuItem = item)
+            Divider()
         }
     }
 }
@@ -315,6 +243,108 @@ fun MenuItem(menuItem: MenuItemRoom) {
             text = "$${menuItem.price}",
             style = Typography.h5
         )
+
+    }
+}
+
+@Composable
+fun MenuBreakdown(
+    menuItems: List<MenuItemRoom>,
+    onMenuChanged: (List<MenuItemRoom>) -> Unit
+) {
+
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+    )
+    {
+
+        Text(
+            modifier = Modifier.padding(start = 8.dp, top = 8.dp),
+            text = "ORDER FOR DELIVERY !",
+            style = Typography.h4
+        )
+
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 12.dp, bottom = 12.dp)
+
+
+        ) {
+            Box(
+                contentAlignment = Alignment.CenterStart,
+                modifier = Modifier
+                    .wrapContentSize()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(LittleLemonWhite)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable {
+                            onMenuChanged(menuItems.filter { it.category.contains("starters") })
+                        },
+                    text = "Starters",
+
+                    )
+            }
+
+            Box(
+                contentAlignment = Alignment.CenterStart,
+                modifier = Modifier
+                    .wrapContentSize()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(LittleLemonWhite)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable {
+                            onMenuChanged(menuItems.filter { it.category.contains("mains") })
+                        },
+                    text = "Mains"
+                )
+            }
+            Box(
+                contentAlignment = Alignment.CenterStart,
+                modifier = Modifier
+                    .wrapContentSize()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(LittleLemonWhite)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable {
+                            onMenuChanged(menuItems.filter { it.category.contains("desserts") })
+                        },
+                    text = "Desserts"
+                )
+            }
+            Box(
+                contentAlignment = Alignment.CenterStart,
+                modifier = Modifier
+                    .wrapContentSize()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(LittleLemonWhite)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable {
+                            onMenuChanged(menuItems.filter { it.category.contains("drinks") })
+                        },
+                    text = "Drinks"
+                )
+            }
+
+        }
+
+        Divider()
 
     }
 }
