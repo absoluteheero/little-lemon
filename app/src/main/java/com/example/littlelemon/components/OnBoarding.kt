@@ -24,6 +24,7 @@ import com.example.littlelemon.R
 import com.example.littlelemon.data.UserSingleton
 import com.example.littlelemon.ui.theme.LittleLemonGreen
 import com.example.littlelemon.ui.theme.LittleLemonYellow
+import com.example.littlelemon.ui.theme.Typography
 
 
 @Composable
@@ -70,9 +71,8 @@ fun OnBoarding(navController: NavController) {
 
         // Personnal info subtitle
         Text(
+            style = Typography.h4,
             text = "Personal information",
-            fontSize = 18.sp,
-            fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
             modifier = Modifier.padding(top = 32.dp, bottom = 16.dp)
         )
 

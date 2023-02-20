@@ -23,6 +23,7 @@ import com.example.littlelemon.R
 import com.example.littlelemon.data.UserSingleton
 import com.example.littlelemon.ui.theme.LittleLemonGreen
 import com.example.littlelemon.ui.theme.LittleLemonYellow
+import com.example.littlelemon.ui.theme.Typography
 
 @Composable
 fun Profile(navController: NavController) {
@@ -43,56 +44,49 @@ fun Profile(navController: NavController) {
             contentDescription = "Logo",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(85.dp)
+                .height(75.dp)
                 .padding(top = 8.dp, bottom = 16.dp)
         )
 
         // Personnal info subtitle
         Text(
             text = "Personal information",
-            fontSize = 18.sp,
-            fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
+            style = Typography.h3,
             modifier = Modifier.padding(top = 32.dp, bottom = 16.dp)
         )
 
-        // Input text fields for first name, last name, and email
+        // Text for first name, last name, and email
         Text(
             text = "First Name",
-            fontSize = 12.sp,
-            fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold))
+            style = Typography.caption
         )
         Text(
             text = UserSingleton.firstName.toString(),
             modifier = Modifier.fillMaxWidth()
                 .padding(bottom=16.dp),
-            fontFamily = FontFamily(Font(R.font.markazitextregular)),
-            fontSize = 24.sp
+            style = Typography.body2
         )
 
 
         Text(
             text = "Last Name",
-            fontSize = 12.sp,
-            fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold))
+            style = Typography.caption
         )
 
         Text(
             text = UserSingleton.lastName.toString(),
             modifier = Modifier.fillMaxWidth().padding(bottom=16.dp),
-            fontFamily = FontFamily(Font(R.font.markazitextregular)),
-            fontSize = 24.sp
+            style = Typography.body2
         )
 
         Text(
             text = "Email",
-            fontSize = 12.sp,
-            fontFamily = FontFamily(Font(R.font.karlaregular, FontWeight.Bold)),
+            style = Typography.caption
         )
         Text(
             text = UserSingleton.email.toString(),
             modifier = Modifier.fillMaxWidth().padding(bottom=16.dp),
-            fontFamily = FontFamily(Font(R.font.markazitextregular)),
-            fontSize = 24.sp
+            style = Typography.body2
         )
 
         // Button at the bottom of the page
