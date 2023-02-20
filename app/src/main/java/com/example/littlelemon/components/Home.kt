@@ -165,7 +165,7 @@ fun LittleLemonHeroSection(
                 if (search.isBlank()) {
                     menu = menuItems.filter { it.title.startsWith(".", ignoreCase = true) }
                 } else {
-                    menu = menuItems.filter { it.title.startsWith(search, ignoreCase = true) }
+                    menu = menuItems.filter { it.title.contains(search, ignoreCase = true) }
                 }
 
                 onMenuChanged(menu)
@@ -343,7 +343,7 @@ fun MenuBreakdown(
                         .clickable {
                             onMenuChanged(menuItems.filter { it.category.contains("drinks") })
                         },
-                    text = "Drinks"
+                    text = "All"
                 )
             }
 
