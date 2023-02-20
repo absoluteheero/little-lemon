@@ -44,7 +44,7 @@ fun Home(navController: NavController) {
 
     val menuDao = database.menuItemDao()
 
-    // add databaseMenuItems code here
+    // Retrieve menuItems from database
     val databaseMenuItems by menuDao.getAll().observeAsState(emptyList())
 
     var menuItems by remember { mutableStateOf(databaseMenuItems) }
@@ -60,14 +60,19 @@ fun Home(navController: NavController) {
             .background(Color.White)
     ) {
 
+        // Call for the TopAppBar Composable
         LittleLemonTopAppBar(navController = navController)
+
+        //Call for the Hero Section Composable
         LittleLemonHeroSection(menuItems, onMenuChanged = { menu -> menuItems = menu })
+
+        // Call for the menu breakdown Composable
         MenuBreakdown(menuItems, onMenuChanged = { menu -> menuItems = menu })
+
+        // Call for menu list Composable
         MenuItems(menuItems)
 
-
     }
-
 
 }
 

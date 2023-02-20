@@ -2,6 +2,8 @@ package com.example.littlelemon.data
 
 import android.content.Context
 
+
+// This User Singleton is useful so that the data is available everywhere in the App
 object UserSingleton{
     var firstName: String? = null
     var lastName: String? = null

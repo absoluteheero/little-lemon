@@ -1,5 +1,6 @@
 package com.example.littlelemon.components
 
+// Interface that sets all the destinations of the Little Lemon App
 interface Destinations{
     val route: String
 }

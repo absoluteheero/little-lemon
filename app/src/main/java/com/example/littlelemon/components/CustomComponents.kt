@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.littlelemon.ui.theme.Typography
 
-
+// Custom button
 @Composable
 fun MyButton(
     text: String,
